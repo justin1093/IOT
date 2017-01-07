@@ -1,0 +1,33 @@
+const int numReadings = 10;
+int readings[numReadings];      // the readings from the analog input
+int readIndex = 0;              // the index of the current reading
+int total = 0;                  // the running total
+int average = 0;                // the average
+
+int inputPin = A0;
+
+void setup() {
+  
+  Serial.begin(9600); // initialize serial communication with computer:
+  
+  for (int thisReading = 0; thisReading < numReadings; thisReading++) // initialize all the readings to 0:
+  {
+    readings[thisReading] = 0;
+  }
+}
+void loop() {
+  total = total - readings[readIndex];  // subtract the last reading:
+  readings[readIndex] = (analogRead(inputPin))*0.322265625; // read from the LM35 sensor value from A0 and do conversion:
+  total = total + readings[readIndex];  // add the reading to the total: 
+  readIndex = readIndex + 1;  // advance to the next position in the array:
+  if (readIndex >= numReadings) // if we're at the end of the array...
+  {
+    readIndex = 0;  // ...wrap around to the beginning:
+  }
+  average = total / numReadings;   // calculate the average:
+  Serial.print("TEMPRATURE = ");    // start sending to the computer 
+  Serial.print(average);
+  Serial.print("*C");
+  Serial.println();
+  delay(1);        // delay in between reads for stability
+}
