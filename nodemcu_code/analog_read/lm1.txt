@@ -1,0 +1,16 @@
+void setup()
+ {
+  Serial.begin(115200);
+ }
+
+void loop() 
+  {
+  int analog=analogRead(A0);
+  float temp=analog*0.322265625;
+  Serial.print("TEMPRATURE = ");
+  Serial.print(temp);
+  Serial.print("*C");
+  Serial.println();
+  delay(1000);
+  }
+  
