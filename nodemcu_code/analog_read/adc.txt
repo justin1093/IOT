@@ -1,0 +1,17 @@
+void setup() 
+{
+  Serial.begin(115200);
+}
+
+void loop()
+ {
+int s=analogRead(A0);
+Serial.print("ADC 10 bit =");
+Serial.print(s);
+float volts=3.30*(float)s/1023.00;
+Serial.print(",Voltage=");
+Serial.print(volts,2);
+Serial.print("V");
+delay(500);
+Serial.print('\n'); 
+}
